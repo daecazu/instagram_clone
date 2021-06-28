@@ -1,0 +1,7 @@
+-r ./base.txt
+
+#test
+flake8>=3.6.0,<3.7.0
+
+# pdb
+remote_pdb
