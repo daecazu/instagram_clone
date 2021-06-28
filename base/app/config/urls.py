@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', include('user.urls')),
     path('platzi-gram/', include('platzigram.urls')),
+    path('posts/', include('posts.urls')),
 ]

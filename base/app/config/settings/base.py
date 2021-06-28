@@ -30,20 +30,25 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='16b1o1x6vecjamd4fthz=244ry)d5kiv5
 DEBUG = env.bool('DJANGO_DEBUG', False)
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
+)
+LOCAL_APPS = (
     'core',
     'user',
     'platzigram',
-]
+    'posts'
+)
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
