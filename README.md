@@ -52,33 +52,3 @@ import string
 print("".join(secrets.choice(string.digits + string.ascii_letters + string.punctuation) for i in range(100)))
 ```
 is best practice to create a secret key for each project in the .envs/production/django file
-
-### Create production env files
-
-create .envs files, in order to work the service needs these files:
-
-- .envs/.production/.django
-
-##### Redis
-REDIS_URL=
-
-#### Django
-DJANGO_SECRET_KEY=
-DJANGO_SETTINGS_MODULE=
-
-#### Flower
-CELERY_FLOWER_USER=
-CELERY_FLOWER_PASSWORD=
-
-- .envs/.production/.postgres
-
-#### PostgreSQL
-POSTGRES_HOST=
-POSTGRES_PORT=
-POSTGRES_DB=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-TWSIODB_USER=
-TWSIODB_PASS=
-TWSIODB_HOST=
-TWSIODB_NAME=
