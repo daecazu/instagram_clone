@@ -3,14 +3,17 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from core import models
 from django.utils.translation import gettext as _
 
-
-class UserAdmin(BaseUserAdmin):
+@admin.register(models.User)
+class Profile(BaseUserAdmin):
 
     ordering = ['id']
-    list_display = ['email', 'name']
+    list_display = ['email', 'name', 'phone_number', 'website', 'picture']
+    list_display_links = ('email', 'phone_number')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal Info'), {'fields': ('name',)}),
+        (_('Personal Info'), {'fields': ('name','last_name','phone_number')}),
+        (_('location'), {'fields': ('city','country')}),
+        (_('social'), {'fields': ('website','biography','picture')}),
         (
             _('Permissions'),
             {
@@ -26,5 +29,3 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
-
-admin.site.register(models.User, UserAdmin)

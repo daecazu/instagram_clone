@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class UserManager(BaseUserManager):
@@ -36,12 +37,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
-    bio = models.TextField(blank=True)
+    biography = models.TextField(blank=True)
+    picture = models.ImageField(
+        upload_to='users/pictures', blank=True, null=True
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     birthdate = models.DateField(blank=True, null=True)
+    website = models.CharField(max_length=255)
+    phone_number = PhoneNumberField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    class Meta:
+        verbose_name = "Profile"
