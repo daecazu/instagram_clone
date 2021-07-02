@@ -20,6 +20,14 @@ COPY ./base/compose/dev/django/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
 
+COPY ./base/compose/dev/django/start /start
+RUN sed -i 's/\r//' /start
+RUN chmod +x /start
+
+RUN mkdir -p /vol/web/static
+COPY ./static /vol/web/static
+
+
 RUN apk del .tmp-build-deps
 
 RUN mkdir /app

@@ -20,3 +20,8 @@ CACHES = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+STATICFILES_DIRS = ('/vol/web/static',)
+STATICFILES_FINDER = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
