@@ -1,7 +1,10 @@
 """user views"""
 
 # Django
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
 
@@ -29,15 +32,21 @@ def login_view(request):
             login(request, user)
             return redirect('/posts/')
         else:
-            render(
+            return render(
                 request,
                 'users/login.html',
-                context={'error': 'Invalid username and password',} 
+                {'error': 'Invalid username or password'} 
             )
+           
             
         # remote_pdb.set_trace(host='0.0.0.0', port=4444)
     return render(request, 'users/login.html')
 
+@login_required
+def logout_view(request):
+    """Logout a user """
+    logout(request)
+    return redirect('/users/login/')
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
