@@ -22,6 +22,12 @@ from django.db.utils import IntegrityError
 # utilities
 import remote_pdb
 
+
+def update_profile(request):
+    """update profile"""
+    return render(request, 'users/update_profile.html')
+
+
 def login_view(request):
     """login view"""
     if request.method == 'POST':
