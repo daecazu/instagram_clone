@@ -9,7 +9,7 @@
         <p class="alert alert-danger">{{ error }}</p> 
     {% endif%}
 
-    <form method="POST" >
+    <form action="{% url "users:login" %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <input class="form-control" type="text" placeholder="Username" name="username">
@@ -19,6 +19,7 @@
             <input class="form-control" type="password" placeholder="Password" name="password"">
         </div>
         <button class="btn btn-primary btn-block mt-5"  type="submit">Sign in!</button>
+        <p class="login-wrapper-footer-text">Don't have an account? <a href="{% url "users:signup" %}" class="text-reset">Register here</a></p>
         
 
     </form>

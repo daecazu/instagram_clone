@@ -4,6 +4,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -14,6 +15,9 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
 from user.serializers import UserSerializer, AuthTokenSerializer
+
+# Exceptions
+from django.db.utils import IntegrityError
 
 # utilities
 import remote_pdb
@@ -41,6 +45,33 @@ def login_view(request):
             
         # remote_pdb.set_trace(host='0.0.0.0', port=4444)
     return render(request, 'users/login.html')
+
+def signup(request):
+    """sign up view"""
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        password_confirmation = request.POST['password_confirmation']
+        if password != password_confirmation:
+            return render(
+                request,
+                'users/signup.html',
+                {'error': 'password confirmation does not match'}
+            )
+        try:
+            get_user_model().objects.create_user(
+                email=email,
+                password=password
+            )
+        except IntegrityError:
+            return render(
+                request,
+                'users/signup.html',
+                {'error': 'email already in use'}
+            )
+
+        return redirect("users:login")
+    return render(request, 'users/signup.html')
 
 @login_required
 def logout_view(request):

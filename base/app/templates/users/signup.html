@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+{% block head_content %}
+<title>Sign up omni-dev-test</title>
+{% endblock  %}
+{% block container %}
+{% if error %}
+    <p class="alert alert-danger">{{  error }}</p>
+    
+{% endif %}
+
+<form action="{% url "users:signup" %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+            <input  type="email" placeholder="Email" name="email" class="form-control" required="true">
+    </div>
+    <div class="form-group">
+            <input  type="password" placeholder="Password" name="password" class="form-control" required="true">
+    </div>
+    <div class="form-group">
+            <input  type="password" placeholder="Password Confirmation" name="password_confirmation" class="form-control" required="true">
+    </div>
+    <button class="btn btn-primary btn-block mt-5" type="submit">Register</button>
+    <div class="text-center w-100">
+        <p class="text-muted font-weight-bold">Already Registered? <a href="{% url "users:login" %}" class="text-primary ml-2">Login</a></p>
+    </div>
+</form>
+
+{% endblock  %}
