@@ -19,7 +19,8 @@ class ProfileCompletionMiddleware():
         code to be executed for each request before the view
         is called.
         """
-        if not request.user.is_anonymous:
+
+        if not (request.user.is_anonymous or request.user.is_staff):
             user = request.user
             if not user.picture or not user.biography:
                 urls = [

@@ -22,10 +22,35 @@ from django.db.utils import IntegrityError
 # utilities
 import remote_pdb
 
+# Forms
+from user.forms import ProfileForm
+
 
 def update_profile(request):
     """update profile"""
-    return render(request, 'users/update_profile.html')
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.cleaned_data
+            user.website = data['website']
+            user.phone_number = data['phone_number']
+            user.biography = data['biography']
+            user.picture = data['picture']
+            user.save()
+            return redirect('users:update_profile')
+    else:
+        form = ProfileForm()
+    
+    return render(
+        request,
+        template_name='users/update_profile.html',
+        context={
+            'user': user,
+            'form': form
+        },
+        
+    )
 
 
 def login_view(request):
